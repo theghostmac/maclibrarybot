@@ -34,11 +34,10 @@ func main() {
 			continue
 		}
 
+		// Pass the update to the handler.
 		handlebot.HandleUpdate(bot, update)
 
+		// Logging the message for debugging purposes.
 		logger.Info("Received a message", zap.String("from", update.Message.From.UserName), zap.String("text", update.Message.Text))
-
-		msg := tgbotapi.NewMessage(update.Message.Chat.ID, update.Message.Text)
-		bot.Send(msg)
 	}
 }

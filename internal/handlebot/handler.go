@@ -10,8 +10,21 @@ func HandleUpdate(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		return // No message to handle.
 	}
 
-	switch update.Message.Command() {
-	case "start":
-		commands.HandleStartCommand(bot, update)
+	// Check if the message text matches the labels on the custom keyboard buttons.
+	switch update.Message.Text {
+	case "🔍 Search A Book":
+		commands.HandleSearchCommand(bot, update)
+	case "🔥 Popular Books":
+		commands.HandleRecommendPopular(bot, update)
+	default:
+
+		switch update.Message.Command() {
+		case "start":
+			commands.HandleStartCommand(bot, update)
+		case "search":
+			commands.HandleSearchCommand(bot, update)
+		case "recommend":
+			commands.HandleRecommendPopular(bot, update)
+		}
 	}
 }
